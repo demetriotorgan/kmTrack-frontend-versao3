@@ -56,16 +56,34 @@ const criarPayload = () => ({
     setSalvando(true);
     const payload = criarPayload();
       const response = await api.post('/salvar-trecho', payload);
-      console.log(response.data);
-      alert('Registro salvo com sucesso');
-      setDadosTrecho(trechoInicial);
-      setListarTrechos(prev => [response.data.trecho, ...prev]);
+      
+       // 🔹 ONLINE NORMAL
+      if (!response.data.offline) {
+        alert("Registro salvo com sucesso!");
+        setListarTrechos((prev) => [response.data.trecho, ...prev]);
+      }
+
+       // 🔹 CASO OFFLINE
+      if (response.data.offline === true) {
+        alert(
+          "Sem conexão! O registro foi salvo offline e será sincronizado automaticamente quando a internet voltar."
+        );
+const trechoOffline = {
+          ...payload,
+          _id: "temp-" + Date.now(), // id temporário para interface
+          offline: true,
+        };
+
+        // adiciona na lista para feedback visual
+        setListarTrechos((prev) => [trechoOffline, ...prev]);
+      }
+       setDadosTrecho(trechoInicial);
+      
     } catch (error) {
       console.log(error);
     }finally{
         setSalvando(false);
-    }    
-        
+    }        
     };
 
     return {
