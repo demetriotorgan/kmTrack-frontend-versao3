@@ -8,9 +8,16 @@ export const STORES = {
 };
 
 export const ROUTE_TO_STORE = [
+  // ✅ ADICIONAR TRECHO
   { route: "/salvar-trecho", store: STORES.TRECHO },
   { route: "/editar-trecho", store: STORES.TRECHO },
   { route: "/deletar-trecho", store: STORES.TRECHO },
+  
+  // ✅ ADICIONAR PEDÁGIO
+  { route: "/salvar-pedagio", store: STORES.PEDAGIO },
+  { route: "/listar-pedagio", store: STORES.PEDAGIO },
+  { route: "/deletar-pedagio", store: STORES.PEDAGIO },
+  
 ];
 
 function identifyStore(url) {

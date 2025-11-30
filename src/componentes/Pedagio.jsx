@@ -4,26 +4,12 @@ import { dateToIso, isoToDate, isoToDateEdit, isoToHHMM } from '../util/time';
 import ModalCarregamento from './ModalCarregamento';
 import api from '../api/api';
 import { useSalvarPedagio } from '../hooks/useSalvarPedagio';
+import { useListarPedagio } from '../hooks/useListarPedagio';
 
 const Pedagio = () => {
-const [listarPedagios, setListarPedagios] = useState([]);
-const [carregando, setCarregando] = useState(false);
 
-const { salvarTrecho, handleDadosPedagio, dadosPedagio, setDadosPedagio, salvando} = useSalvarPedagio({setListarPedagios});
-
-const carregarPedagios = async()=>{
-  try {
-    const response = await api.get('/listar-pedagio');
-    setListarPedagios(response.data);
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-useEffect(()=>{
-  carregarPedagios();
-},[]);
+const {listarPedagios, setListarPedagios, carregando, carregarPedagios} = useListarPedagio();
+const { salvarPedagio, handleDadosPedagio, dadosPedagio, setDadosPedagio, salvando} = useSalvarPedagio({setListarPedagios});
 
   return (
     <>
@@ -57,16 +43,16 @@ useEffect(()=>{
         onChange={handleDadosPedagio}
         />
       </label>
-      <button className='botao-principal' onClick={salvarTrecho}>Salvar<Save /></button>
+      <button className='botao-principal' onClick={salvarPedagio}>Salvar<Save /></button>
     </div>
 
       <div className="container">
         {(carregando) && (<ModalCarregamento label='Carregando' />)}
-        <h2>Trechos Salvos</h2>
+        <h2>Pedágios Salvos</h2>
         {Array.isArray(listarPedagios) && listarPedagios.map((item, index) => (
           <div className="card-trecho" key={index}>
             <p className="titulo-trecho">{item.local}</p>
-            <p><strong>Valor:</strong> {item.distancia} km</p>            
+            <p><strong>Valor:</strong> {item.valor} R$</p>            
             <p><strong>Data:</strong> {isoToDate(item.data)}</p>
             <button className='botao-atencao'>Excluir <Trash2 /></button>
             <button className='botao-secundario'>Editar <Pencil /></button>
