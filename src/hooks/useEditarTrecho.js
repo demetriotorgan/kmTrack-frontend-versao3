@@ -13,7 +13,7 @@ export function useEditarTrecho({setDadosTrecho, dadosTrecho,setListarTrechos,tr
       // ▶️ 1. Verificação imediata OFFLINE
       if (!navigator.onLine) {
         alert(
-          "❌ Você está offline.\nA exclusão só pode ser realizada quando a conexão estiver ativa."
+          "❌ Você está offline.\nA edição só pode ser realizada quando a conexão estiver ativa."
         );
         return;
       }

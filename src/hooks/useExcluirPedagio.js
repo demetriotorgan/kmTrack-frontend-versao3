@@ -5,6 +5,14 @@ export function useExcluirPedagio({setListarPedagios}){
 const [excluindo, setExcluindo] = useState(false);
 
 const handleExcluir = async(item)=>{
+    // ▶️ 1. Verificação imediata OFFLINE
+      if (!navigator.onLine) {
+        alert(
+          "❌ Você está offline.\nA exclusão só pode ser realizada quando a conexão estiver ativa."
+        );
+        return;
+      }
+      
   const confirmar = window.confirm('Deseja realmente excluir este registro?');
   if(!confirmar) return
   

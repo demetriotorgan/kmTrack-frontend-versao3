@@ -56,8 +56,7 @@ const {excluindo, handleExcluir} = useExcluirPedagio({setListarPedagios});
             <p className="titulo-trecho">{item.local}</p>
             <p><strong>Valor:</strong> {item.valor} R$</p>            
             <p><strong>Data:</strong> {isoToDate(item.data)}</p>
-            <button className='botao-atencao' onClick={()=>handleExcluir(item)}>Excluir <Trash2 /></button>
-            <button className='botao-secundario'>Editar <Pencil /></button>
+            <button className='botao-atencao' onClick={()=>handleExcluir(item)}>Excluir <Trash2 /></button>            
           </div>
         ))}
       </div>
